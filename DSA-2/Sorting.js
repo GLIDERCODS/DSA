@@ -22,18 +22,43 @@
 
 /*  =====  Insertion Sort  ===== */
 
-function insertionsort(arr){
-    for(let i = 1 ; i < arr.length ; i++){
-        let temp = arr[i]
-        let j = i-1
-        while( j >= 0 && arr[j] > temp ){
-            arr[j+1] = arr[j]
-            j = j-1
-        }
-        arr[j+1] = temp
+// function insertionsort(arr){
+//     for(let i = 1 ; i < arr.length ; i++){
+//         let temp = arr[i]
+//         let j = i-1
+//         while( j >= 0 && arr[j] > temp ){
+//             arr[j+1] = arr[j]
+//             j = j-1
+//         }
+//         arr[j+1] = temp
+//     }
+// }
+
+// const array = [4,6,-3,5,2,1]
+// insertionsort(array)
+// console.log(array);
+
+/* =====  Quick Sort  ===== */
+
+function quickSort(arr){
+    if(arr.length <2){
+        return arr
     }
+    let temp = arr[arr.length-1]
+    let left = []
+    let right = []
+
+    for(let i = 0 ; i<arr.length-1 ; i++){
+        if(arr[i] > temp){
+            right.push(arr[i])
+        }else{
+            left.push(arr[i])
+        }
+    }
+
+    return [...quickSort(left),temp,...quickSort(right)]
 }
 
 const array = [4,6,-3,5,2,1]
-insertionsort(array)
-console.log(array);
+console.log( quickSort(array));
+
