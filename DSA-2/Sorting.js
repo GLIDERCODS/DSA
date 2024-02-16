@@ -40,25 +40,47 @@
 
 /* =====  Quick Sort  ===== */
 
-function quickSort(arr){
-    if(arr.length <2){
-        return arr
-    }
-    let temp = arr[arr.length-1]
-    let left = []
-    let right = []
+// function quickSort(arr){
+//     if(arr.length <2){
+//         return arr
+//     }
+//     let temp = arr[arr.length-1]
+//     let left = []
+//     let right = []
 
-    for(let i = 0 ; i<arr.length-1 ; i++){
-        if(arr[i] > temp){
-            right.push(arr[i])
-        }else{
-            left.push(arr[i])
+//     for(let i = 0 ; i<arr.length-1 ; i++){
+//         if(arr[i] > temp){
+//             right.push(arr[i])
+//         }else{
+//             left.push(arr[i])
+//         }
+//     }
+
+//     return [...quickSort(left),temp,...quickSort(right)]
+// }
+
+// const array = [4,6,-3,5,2,1]
+// console.log( quickSort(array));
+
+
+/* =====  Selection Sort  ===== */
+
+function selectionSort(arr){
+    for(let i=0;i<arr.length-1;i++){
+        let min = i
+        for(let j=i+1;j<arr.length;j++){
+            if(arr[j] < arr[min]){
+                min = j
+            }
+        }
+        if(arr[min]!=arr[i]){
+            let temp = arr[i]
+            arr[i]=arr[min]
+            arr[min]=temp
         }
     }
-
-    return [...quickSort(left),temp,...quickSort(right)]
+    return arr
 }
 
 const array = [4,6,-3,5,2,1]
-console.log( quickSort(array));
-
+console.log( selectionSort(array));
