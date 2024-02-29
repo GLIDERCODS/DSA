@@ -1,110 +1,58 @@
-class Node{
-    constructor(value){
-        this.value = value
-        this.next = null
+class Stack {
+    constructor() {
+        this.items = []; 
+    }
+
+    push(element) {
+        this.items.push(element);
+    }
+
+    pop() {
+        return this.items.pop(); 
+    }
+
+    isEmpty() {
+        return this.items.length === 0; 
     }
 }
 
-class LindkedList{
-    constructor(){
-        this.head = null
-        this.tail = null
-        this.size = 0
+class Queue {
+    constructor() {
+        this.pushStack = new Stack(); 
+        this.popStack = new Stack();  
     }
 
-    isEmpty(){
-        return this.size === 0
+    enqueue(value) {
+        this.pushStack.push(value);
+        console.log(this.pushStack.items);
+        if (this.popStack.isEmpty()) {
+            this.addToPopStack();
+        }
     }
 
-    prepend(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-            this.tail = node
-        }else{
-            node.next = this.head
-            this.head = node
+    addToPopStack() {
+        while (!this.pushStack.isEmpty()) {
+            this.popStack.push(this.pushStack.pop());
         }
-        this.size++
     }
 
-    append(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.head = node
-            this.tail = node
-        }else{
-            this.tail.next = node
-            this.tail = node
+    dequeue() {
+        if (!this.popStack.isEmpty()) {
+            return this.popStack.pop();
+        } else {
+            this.addToPopStack();
+            return this.popStack.pop();
         }
-        this.size++
-    }
-    removefront(){
-        if(this.isEmpty()){
-            return null
-        }else{
-            this.head = this.head.next
-            this.size--
-        }
-
-    }
-
-    print(){
-        if(this.isEmpty()){
-            return null
-        }
-
-        let curr = this.head
-        let listValue = ""
-        while(curr){
-            listValue += `${curr.value} `
-            curr = curr.next
-        }
-        return console.log(listValue)
-    }
-
-    reverse(curr = this.head){
-        if(curr == null){
-            return 
-        }
-        this.reverse(curr.next)
-        return console.log(curr.value)
-         
     }
 }
 
-// const list = new LindkedList()
-// list.prepend(90)
-// list.prepend(60)
-// list.prepend(40)
-// list.append(25)
-// list.print()
-// list.reverse()
+let queue = new Queue();
+queue.enqueue(10);
+queue.enqueue(20);
+queue.enqueue(30);
+queue.enqueue(40);
 
-class LindkedListStack{
-    constructor(){
-        this.list = new LindkedList()
-    }
-
-    push(value){
-       return this.list.prepend(value)
-    }
-    pop(){
-       return this.list.removefront()
-    }
-    peek(){
-        return this.list.head 
-    }
-    print(){
-        return this.list.print()
-    }
-}
-
-const stack = new LindkedListStack()
-stack.push(78)
-stack.push(39)
-stack.push(89)
-stack.push(60)
-stack.print()
-stack.pop()
-stack.print()
+console.log(queue.dequeue()); // Output: 10
+console.log(queue.dequeue()); // Output: 20
+console.log(queue.dequeue()); // Output: 30
+console.log(queue.dequeue()); // Output: 40

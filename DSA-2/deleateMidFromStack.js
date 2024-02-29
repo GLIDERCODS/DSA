@@ -66,7 +66,7 @@ class LinkedList{
         if(node==null){
             return
         }
-        let value =''
+       
          this.reverse(node.next)
          
          return console.log(node.value);
