@@ -86,8 +86,7 @@ class LinkedList{
 class Stack{
     constructor(){
         this.list = new LinkedList()
-        this.size = 0
-        
+        this.size = 0  
     }
 
     push(value){

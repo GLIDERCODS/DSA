@@ -84,3 +84,28 @@ function selectionSort(arr){
 
 const array = [4,6,-3,5,2,1]
 console.log( selectionSort(array));
+
+/* ==== Merge Sort ==== */
+function sort(arr){
+    if(arr.length<2){
+        return arr
+    }
+    let mid = Math.floor(arr.length/2)
+    let left = arr.slice(0,mid)
+    let right = arr.slice(mid)
+    return merge(sort(left),sort(right))
+    }
+    function merge(left,right){
+        let swape = []
+        while(left.length&&right.length){
+            if(left[0]<=right[0]){
+                swape.push(left.shift())
+            }else{
+                swape.push(right.shift())
+            }
+        }
+        return [...swape,...left,...right]
+    }
+    const Array = [3,6,7,5,2,1]
+    
+    console.log(sort(Array))
