@@ -37,20 +37,6 @@ class BinarySearchTree{
             }
         }
     }
-
-    search(value,root=this.root){
-        if(!root){
-            return false
-        }else{
-            if(root.value === value){
-                return true
-            }else if(value < root.value){
-               return this.search(value,root.left)
-            }else{
-               return this.search(value,root.right)
-            }
-        }
-    }
     preOrder(root = this.root){
         if(root){
             console.log(root.value);
@@ -80,6 +66,4 @@ bsn.insert(10)
 bsn.insert(13)
 bsn.insert(6)
 bsn.insert(4)
-console.log(bsn.isEmpty());
-console.log(bsn.search(6));
 bsn.preOrder()
