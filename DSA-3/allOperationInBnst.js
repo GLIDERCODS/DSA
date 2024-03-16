@@ -71,7 +71,7 @@ class binarySearchTree{
             console.log((root.value));
         }
     }
-    /* bst */
+    /* bfs */
     levelOrder(){
         const queue = []
         queue.push(this.root)
