@@ -1,66 +1,55 @@
-class Node{
-    constructor(value){
-        this.value = value
-        this.left = null
-        this.right = null
-    }
-}
-class BinarySearchTree{
+class Graph{
     constructor(){
-        this.root = null
+        this.adjesencyList = {}
     }
-    isEmpty(){
-        return this.root===null
-    }
-    insert(value){
-        const node = new Node(value)
-        if(this.isEmpty()){
-            this.root = node
-        }else{
-            this.insertNode(this.root,node)
+    addVertex(vertex){
+        if(!this.adjesencyList[vertex]){
+            this.adjesencyList[vertex] = new Set()
         }
     }
-
-    insertNode(root,node){
-        if(node.value < root.value){
-            if(root.left === null){
-                root.left = node
-            }else{
-                this.insertNode(root.left,node)
-            }
-        }else{
-            if(root.right === null){
-                root.right = node
-            }else{
-                this.insertNode(root.right,node)
-            }
+    addEdge(vertex1,vertex2){
+        if(!this.adjesencyList[vertex1]){
+            this.addVertex(vertex1)
+        }
+        if(!this.adjesencyList[vertex2]){
+            this.addVertex(vertex2)
+        }
+        this.adjesencyList[vertex1].add(vertex2)
+        this.adjesencyList[vertex2].add(vertex1)
+    }
+    display(){
+        for(let vertex in this.adjesencyList){
+            console.log(vertex + ' -> ' + [...this.adjesencyList[vertex]])
         }
     }
-   min(root=this.root){
-    if(!root.left){
-        return root.value
-    }else{
-       return this.min(root.left)
+    hasEdge(vertex1,vertex2){
+        return (
+            this.adjesencyList[vertex1].has(vertex2)&&
+            this.adjesencyList[vertex2].has(vertex1)
+        )
     }
-   }
-   max(root=this.root){
-    if(!root.right){
-        return root.value
-    }else{
-      return  this.max(root.right)
+    removeEdge(vertex1,vertex2){
+        this.adjesencyList[vertex1].delete(vertex2)
+        this.adjesencyList[vertex2].delete(vertex1)
     }
-   }
-    
-
+    removeVertex(vertex){
+        if(!this.adjesencyList[vertex]){
+            return
+        }
+        for(let adjecentVertex of this.adjesencyList[vertex]){
+            this.removeEdge(vertex,adjecentVertex)
+        }
+        delete this.adjesencyList[vertex]
+    }
 }
-
-const bst = new BinarySearchTree()
-console.log(bst.isEmpty());
-bst.insert(10)
-bst.insert(5)
-bst.insert(15)
-bst.insert(3)
-bst.insert(4)
-bst.insert(2)
-console.log("min : ",bst.min());
-console.log("max : ",bst.max());
+const graph = new Graph()
+graph.addVertex("A")
+graph.addVertex("B")
+graph.addVertex("C")
+graph.addEdge("A","B")
+graph.addEdge("B","C")
+graph.display()
+console.log(graph.hasEdge("A","C"));
+console.log(graph.hasEdge("B","C"));
+graph.removeVertex("B")
+graph.display()

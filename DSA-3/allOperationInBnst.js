@@ -119,7 +119,7 @@ class binarySearchTree{
         if(!root.left){
             return root.right
         }else if(!root.right){
-            return root.left
+            return root.left 
         }
         root.value = this.min(root.right)
         root.right = this.deletNode(root.right,root.value)
