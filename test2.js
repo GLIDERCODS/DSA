@@ -1,63 +1,55 @@
-class Graph{
-    constructor(){
-        this.adjecensyList = {}
-    }
-
-    addVertex(vertex){
-        if(!this.adjecensyList[vertex]){
-            this.adjecensyList[vertex] = new Set()
-        }
-    }
-
-    addEdge(vertex1,vertex2){
-        if(!this.adjecensyList[vertex1]){
-            this.addVertex(vertex1)
-        }
-        if(!this.adjecensyList[vertex2]){
-            this.addVertex(vertex2)
-        }
-        this.adjecensyList[vertex1].add(vertex2)
-        this.adjecensyList[vertex2].add(vertex1)
-    }
-
-    display(){
-        for(let vertex in this.adjecensyList){
-            console.log(vertex + " -> " + [...this.adjecensyList[vertex]])
-        }
-    }
-
-    hasEdge(vertex1,vertex2){
-        return (
-            this.adjecensyList[vertex1].has(vertex2)&&this.adjecensyList[vertex2].has(vertex1)
-        )
-    }
-
-    removeEdge(vertex1,vertex2){
-        this.adjecensyList[vertex1].delete(vertex2)
-        this.adjecensyList[vertex2].delete(vertex1)
-    }
-
-    removeVertex(vertex){
-        if(!this.adjecensyList[vertex]){
-            return 
-        }
-        for(let adjVertex of this.adjecensyList[vertex]){
-            this.removeEdge(vertex,adjVertex)
-        }
-        delete this.adjecensyList[vertex]
+class TrieNode {
+    constructor() {
+        this.children = {};
+        this.isEndOfWord = false;
     }
 }
 
-const graph = new Graph()
-graph.addVertex("A")
-graph.addVertex("B")
-graph.addVertex("C")
-graph.addEdge("A","B")
-graph.addEdge("B","C")
-graph.display()
-console.log(graph.hasEdge("A","C"));
-console.log(graph.hasEdge("B","C"));
-graph.removeVertex("B")
-graph.display()
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
 
+    insert(word) {
+        let node = this.root;
+        for (let char of word) {
+            if (!node.children[char]){
+                node.children[char] = new TrieNode();
+            }
+            node = node.children[char];
+        }
+        node.isEndOfWord = true;
+    }
 
+    search(word) {
+        let node = this.root;
+        for (let char of word) {
+            if (!node.children[char]) {
+                return false;
+            }
+            node = node.children[char];
+        }
+        return node.isEndOfWord;
+    }
+
+    startsWith(prefix) {
+        let node = this.root;
+        for (let char of prefix) {
+            if (!node.children[char]) {
+                return false;
+            }
+            node = node.children[char];
+        }
+        return true;
+    }
+}
+
+// Example usage:
+const trie = new Trie();
+trie.insert("apple");
+console.log(JSON.stringify(trie,null,2));
+// console.log(trie.search("apple"));   // Output: true
+// console.log(trie.search("app"));     // Output: false
+// console.log(trie.startsWith("app")); // Output: true
+// trie.insert("app");
+// console.log(trie.search("app"));     // Output: true
