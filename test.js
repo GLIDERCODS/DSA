@@ -1,3 +1,4 @@
+// potttaaaaaaaaaaaaaaaaaaaa
 class Node{
     constructor(){
         this.childe = {}
