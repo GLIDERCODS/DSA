@@ -1,4 +1,5 @@
 // potttaaaaaaaaaaaaaaaaaaaa
+// mandaaaaaaaaaaaaaaaa
 class Node{
     constructor(){
         this.childe = {}
